@@ -1,5 +1,3 @@
-Here's a detailed README template for your GitHub repo, **DevSphereByKeisar**, as a blog and portfolio site.
-
 ---
 
 # DevSphereByKeisar
