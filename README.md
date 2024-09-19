@@ -1,5 +1,3 @@
----
-
 # DevSphereByKeisar
 
 Welcome to **DevSphereByKeisar**, a personal blog and portfolio site developed by [Shahar Keisar](https://www.linkedin.com/in/shahar-keisar-8898a31ab). This repository hosts the source code and content of my website, showcasing projects I've worked on, technical content I've shared, and my professional portfolio.
@@ -50,5 +48,3 @@ Feel free to reach out via:
 ---
 
 Thank you for visiting **DevSphereByKeisar**. I hope you enjoy exploring my work!
-
----
