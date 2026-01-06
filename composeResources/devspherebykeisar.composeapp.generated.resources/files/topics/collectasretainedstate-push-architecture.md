@@ -9,17 +9,15 @@ publishedDate: null
 relatedTopics: [hot-cold-streams, extension-functions-vs-context-receivers]
 ---
 
-## The Evolution: From Pull to Push
-
 Traditional Android development often relies on **pull-based** architectures where the UI layer actively requests data. This approach has limitations: unnecessary network calls, complex lifecycle management, and difficulty maintaining state consistency across configuration changes.
 
 Enter the **push-based** architecture with `collectAsRetainedState` - a game-changer that transforms how we handle state in modern Kotlin applications.
 
-## Understanding collectAsRetainedState
+### Understanding collectAsRetainedState
 
 `collectAsRetainedState` is a powerful Compose API that collects Flow values as retained State, surviving configuration changes and maintaining UI consistency. When combined with Circuit's presenter pattern, it creates a robust state management system.
 
-### Basic Example from Tivi
+#### Basic Example from Tivi
 
 ```kotlin
 @Composable
@@ -48,11 +46,11 @@ fun ShowSeasonsPresenter(
 }
 ```
 
-## The Power of Push-Based Data Layer
+### The Power of Push-Based Data Layer
 
 A push-based data layer **emits** updates rather than waiting to be queried. This creates a reactive system where changes propagate automatically through your application.
 
-### Repository Pattern with Flow
+#### Repository Pattern with Flow
 
 ```kotlin
 class ShowDetailsRepository(
@@ -99,7 +97,7 @@ class ShowDetailsRepository(
 }
 ```
 
-## Advanced Presenter with produceState
+### Advanced Presenter with produceState
 
 For more complex scenarios, `produceState` offers fine-grained control over state production:
 
@@ -163,9 +161,9 @@ fun ShowDetailsPresenter(
 }
 ```
 
-## Why This Architecture is Superior
+### Why This Architecture is Superior
 
-### 1. **True Unidirectional Data Flow (UDF)**
+#### 1. True Unidirectional Data Flow (UDF)
 
 Data flows in one direction: Repository → Presenter → UI. Events flow back through the `eventSink`, maintaining clear separation of concerns.
 
@@ -176,7 +174,7 @@ Repository (Flow) → Presenter (State) → UI (Compose)
                     EventSink ← Event ← User Interaction
 ```
 
-### 2. **Automatic State Persistence**
+#### 2. Automatic State Persistence
 
 `collectAsRetainedState` survives configuration changes without additional boilerplate:
 
@@ -186,7 +184,7 @@ val shows by repository.observeShows()
     .collectAsRetainedState(initial = emptyList())
 ```
 
-### 3. **Reactive to All Changes**
+#### 3. Reactive to All Changes
 
 Push-based architecture reacts to changes from any source:
 
@@ -208,7 +206,7 @@ class FollowedShowsRepository(
 }
 ```
 
-### 4. **Optimistic Updates with Fallback**
+#### 4. Optimistic Updates with Fallback
 
 Push-based systems handle optimistic updates elegantly:
 
@@ -235,7 +233,7 @@ class EpisodeRepository(private val db: Database, private val api: Api) {
 }
 ```
 
-### 5. **Efficient Resource Management**
+#### 5. Efficient Resource Management
 
 Flows are lifecycle-aware and automatically cancelled:
 
@@ -255,9 +253,9 @@ fun ShowListPresenter(): ShowListUiState {
 }
 ```
 
-## Advanced Patterns
+### Advanced Patterns
 
-### Combining Multiple Flows with Complex Logic
+#### Combining Multiple Flows with Complex Logic
 
 ```kotlin
 @Composable
@@ -297,7 +295,7 @@ fun HomePresenter(
 }
 ```
 
-### Debouncing and Throttling in Push Systems
+#### Debouncing and Throttling in Push Systems
 
 ```kotlin
 class SearchRepository {
@@ -321,7 +319,7 @@ class SearchRepository {
 }
 ```
 
-## Testing Benefits
+### Testing Benefits
 
 Push-based architectures with `collectAsRetainedState` are highly testable:
 
@@ -345,7 +343,7 @@ fun `presenter emits correct state when repository updates`() = runTest {
 }
 ```
 
-## Conclusion
+### Conclusion
 
 The combination of `collectAsRetainedState` with push-based data architecture creates a superior development experience:
 

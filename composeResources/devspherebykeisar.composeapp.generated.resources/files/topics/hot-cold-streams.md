@@ -9,15 +9,13 @@ publishedDate: null
 relatedTopics: [deferred-and-await]
 ---
 
-## Overview
-
 The current week includes both hot and cold days, just like the streams in Reactive Programming.
 
 In reactive programming, there are two types of streams: hot and cold. Hot streams emit events regardless of whether there are subscribers, while cold streams emit events only when there is at least one subscriber.
 
-## Hot Streams
+### Hot Streams
 
-### Swift (Combine Framework)
+#### Swift (Combine Framework)
 
 In Swift's Combine framework, a hot stream can be created using the `Timer.publish` operator. This operator creates a publisher that sends a value at a regular interval.
 
@@ -36,7 +34,7 @@ let hotPublisher = Timer.publish(every: 1, on: .main, in: .default)
 
 The `.autoconnect()` operator ensures that the publisher starts sending values as soon as the first subscriber attaches. The `.share()` operator shares the publisher among subscribers, ensuring they all receive the same events.
 
-### Kotlin (Flow Framework)
+#### Kotlin (Flow Framework)
 
 In Kotlin's Flow framework, a hot stream can be created using the `MutableSharedFlow` type:
 
@@ -57,9 +55,9 @@ CoroutineScope.launch {
 }
 ```
 
-## Cold Streams
+### Cold Streams
 
-### Swift (Combine Framework)
+#### Swift (Combine Framework)
 
 A cold stream can be created using the `Future` type, which sends a single value when requested by a subscriber:
 
@@ -80,7 +78,7 @@ let subscriber1 = coldPublisher
     }
 ```
 
-### Kotlin (Flow Framework)
+#### Kotlin (Flow Framework)
 
 In Kotlin, a cold stream can be created using the `flowOf` function:
 
@@ -99,7 +97,7 @@ val job1 = CoroutineScope.launch {
 }
 ```
 
-## Conclusion
+### Conclusion
 
 Understanding the difference between hot and cold streams is important for designing efficient and responsive applications. Hot streams can be used to create streams that emit events at a fixed rate, while cold streams can be used to create streams that emit events from a collection or that are expensive to compute.
 

@@ -9,21 +9,19 @@ publishedDate: null
 relatedTopics: [mastering-wildcards]
 ---
 
-## Overview
-
 Kotlin provides two powerful mechanisms for adding behavior to types: extension functions and context receivers. Understanding when to use each is crucial for writing clean, maintainable code.
 
-## Extension Functions
+### Extension Functions
 
 Extension functions allow you to add new functions to existing classes without modifying their source code.
 
-### When to Use Extension Functions
+#### When to Use Extension Functions
 
 1. **Single type enhancement**: Adding utility functions to a specific type
 2. **Dot notation preference**: When you want `object.method()` syntax
 3. **Simple operations**: Straightforward type-specific operations
 
-### Example
+#### Example
 
 ```kotlin
 fun String.isValidEmail(): Boolean {
@@ -37,18 +35,18 @@ if (email.isValidEmail()) {
 }
 ```
 
-## Context Receivers
+### Context Receivers
 
 Context receivers (experimental) allow functions to require specific contexts without explicit parameters.
 
-### When to Use Context Receivers
+#### When to Use Context Receivers
 
 1. **Multiple contexts**: When you need access to multiple implicit receivers
 2. **DSL creation**: Building domain-specific languages
 3. **Reducing parameter noise**: Avoiding excessive parameter passing
 4. **Scope-dependent operations**: Operations that only make sense in certain scopes
 
-### Example
+#### Example
 
 ```kotlin
 context(LoggingContext, DatabaseContext)
@@ -59,9 +57,9 @@ fun processUser(userId: String) {
 }
 ```
 
-## Comparison
+### Comparison
 
-### Extension Functions
+#### Extension Functions
 
 **Pros:**
 - Simple and familiar syntax
@@ -73,7 +71,7 @@ fun processUser(userId: String) {
 - Can clutter autocomplete
 - Not ideal for complex contexts
 
-### Context Receivers
+#### Context Receivers
 
 **Pros:**
 - Multiple implicit contexts
@@ -85,7 +83,7 @@ fun processUser(userId: String) {
 - Less familiar to developers
 - Potential for implicit behavior confusion
 
-## Decision Guide
+### Decision Guide
 
 **Use Extension Functions when:**
 - You're extending a single type
@@ -99,9 +97,9 @@ fun processUser(userId: String) {
 - Operations require specific scopes
 - You want to avoid parameter drilling
 
-## Practical Example
+### Practical Examples
 
-### Extension Function Approach
+#### Extension Function Approach
 
 ```kotlin
 fun String.toTitleCase(): String {
@@ -110,7 +108,7 @@ fun String.toTitleCase(): String {
 }
 ```
 
-### Context Receiver Approach
+#### Context Receiver Approach
 
 ```kotlin
 interface StringFormatter {
@@ -128,6 +126,6 @@ fun processText(text: String): String {
 }
 ```
 
-## Conclusion
+### Conclusion
 
 Both extension functions and context receivers have their place in Kotlin. Extension functions are your go-to for simple, single-type enhancements, while context receivers shine in complex, multi-context scenarios. As context receivers stabilize, they'll become increasingly important for advanced Kotlin patterns.

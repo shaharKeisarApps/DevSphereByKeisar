@@ -9,8 +9,6 @@ publishedDate: null
 relatedTopics: [supervised-scope-build-plugins, collectasretainedstate-push-architecture]
 ---
 
-## The Resource Challenge in KMP
-
 Each platform has different resource systems:
 - **Android**: `R.string.app_name`, `R.drawable.ic_launcher`
 - **iOS**: `NSLocalizedString`, `UIImage(named:)`
@@ -23,11 +21,11 @@ Kotlin Multiplatform needs a unified approach that:
 - Supports localization
 - Handles images, fonts, strings, and files
 
-## Compose Resources: The Modern Solution
+### Compose Resources: The Modern Solution
 
 Compose Resources (from Jetpack Compose Multiplatform) provides a unified, type-safe API for all resources.
 
-### Setup
+#### Setup
 
 ```kotlin
 // gradle/libs.versions.toml
@@ -61,7 +59,7 @@ kotlin {
 }
 ```
 
-### Resource Directory Structure
+#### Resource Directory Structure
 
 ```
 commonMain/
@@ -85,9 +83,9 @@ commonMain/
 │       └── strings_es.xml (Spanish localization)
 ```
 
-## Working with Strings
+### Working with Strings
 
-### Define Strings
+#### Define Strings
 
 ```xml
 <!-- commonMain/composeResources/values/strings.xml -->
@@ -107,7 +105,7 @@ commonMain/
 </resources>
 ```
 
-### Access Strings in Code
+#### Access Strings in Code
 
 ```kotlin
 import devspherebykeisar.composeapp.generated.resources.Res
@@ -134,9 +132,9 @@ suspend fun getAppName(): String {
 }
 ```
 
-## Working with Images
+### Working with Images
 
-### Drawable Resources
+#### Drawable Resources
 
 ```kotlin
 import devspherebykeisar.composeapp.generated.resources.Res
@@ -163,7 +161,7 @@ fun VectorIcon() {
 }
 ```
 
-### Platform-Specific Image Handling
+#### Platform-Specific Image Handling
 
 ```kotlin
 // Automatically selects correct density
@@ -179,9 +177,9 @@ fun AdaptiveImage() {
 }
 ```
 
-## Working with Fonts
+### Working with Fonts
 
-### Font Resources
+#### Font Resources
 
 ```kotlin
 import devspherebykeisar.composeapp.generated.resources.roboto_bold
@@ -219,9 +217,9 @@ val AppTypography = Typography(
 )
 ```
 
-## Working with Files
+### Working with Files
 
-### Raw Resource Files
+#### Raw Resource Files
 
 ```kotlin
 import devspherebykeisar.composeapp.generated.resources.Res
@@ -248,7 +246,7 @@ class ConfigRepository {
 }
 ```
 
-## Platform-Specific Resources with expect/actual
+### Platform-Specific Resources with expect/actual
 
 For truly platform-specific resources:
 
@@ -307,7 +305,7 @@ actual class PlatformResources {
 }
 ```
 
-## Advanced: Dynamic Resource Loading
+### Advanced: Dynamic Resource Loading
 
 ```kotlin
 class ResourceManager {
@@ -338,9 +336,9 @@ class ResourceManager {
 }
 ```
 
-## Localization Best Practices
+### Localization Best Practices
 
-### Plurals Support
+#### Plurals Support
 
 ```xml
 <!-- values/strings.xml -->
@@ -362,7 +360,7 @@ fun ItemCounter(count: Int) {
 }
 ```
 
-### Locale Selection
+#### Locale Selection
 
 ```kotlin
 @Composable
@@ -389,9 +387,9 @@ fun LocalizedAppWithOverride(localeCode: String) {
 }
 ```
 
-## iOS-Specific Considerations
+### iOS-Specific Considerations
 
-### Asset Catalog Integration
+#### Asset Catalog Integration
 
 ```kotlin
 // iosMain - Bridge to iOS asset catalog
@@ -411,7 +409,7 @@ actual fun loadPlatformImage(name: String): ImageBitmap {
 }
 ```
 
-### iOS Bundle Resources
+#### iOS Bundle Resources
 
 ```kotlin
 // iosMain
@@ -430,9 +428,9 @@ fun loadFromBundle(filename: String): ByteArray {
 }
 ```
 
-## Web/Wasm-Specific Handling
+### Web/Wasm-Specific Handling
 
-### Asset Loading for Web
+#### Asset Loading for Web
 
 ```kotlin
 // wasmJsMain
@@ -450,7 +448,7 @@ suspend fun loadWebAsset(path: String): ByteArray {
 // Accessed at: /path/to/file
 ```
 
-### Webpack Configuration for Resources
+#### Webpack Configuration for Resources
 
 ```kotlin
 // build.gradle.kts
@@ -474,9 +472,9 @@ kotlin {
 }
 ```
 
-## Desktop-Specific Resources
+### Desktop-Specific Resources
 
-### JAR Resource Packaging
+#### JAR Resource Packaging
 
 ```kotlin
 // desktopMain
@@ -491,7 +489,7 @@ fun loadDesktopResource(path: String): ByteArray {
 // Resources are packaged in JAR and accessed via classloader
 ```
 
-### Native File System Access
+#### Native File System Access
 
 ```kotlin
 // desktopMain - User documents directory
@@ -506,7 +504,7 @@ suspend fun loadFromFileSystem(filename: String): ByteArray {
 }
 ```
 
-## Testing Resources
+### Testing Resources
 
 ```kotlin
 @Test
@@ -526,9 +524,9 @@ fun testFileResources() = runTest {
 }
 ```
 
-## Performance Optimization
+### Performance Optimization
 
-### Resource Caching
+#### Resource Caching
 
 ```kotlin
 object ResourceCache {
@@ -546,7 +544,7 @@ object ResourceCache {
 }
 ```
 
-### Lazy Loading
+#### Lazy Loading
 
 ```kotlin
 @Composable
@@ -563,7 +561,7 @@ fun LazyLoadedImage(resourceId: DrawableResource) {
 }
 ```
 
-## Conclusion
+### Conclusion
 
 Proper resource handling in KMP requires:
 - **Compose Resources** for common resources across targets

@@ -9,8 +9,6 @@ publishedDate: null
 relatedTopics: [ksp-autoservice, multibinding-dependency-injection, understanding-kclass]
 ---
 
-## The Fundamental Difference: Compiler Plugin vs Annotation Processing
-
 At their core, Metro and Hilt represent two fundamentally different approaches to dependency injection code generation:
 
 - **Metro**: Kotlin compiler plugin operating at FIR (Frontend Intermediate Representation) and IR (Intermediate Representation) phases
@@ -18,9 +16,9 @@ At their core, Metro and Hilt represent two fundamentally different approaches t
 
 This architectural choice cascades into every aspect of how these frameworks operate.
 
-## Metro's Compiler Plugin Architecture
+### Metro's Compiler Plugin Architecture
 
-### FIR Phase: Early Intervention
+#### FIR Phase: Early Intervention
 
 Metro hooks into the Kotlin compiler's FIR phase, allowing it to modify the compilation process before type resolution:
 
@@ -38,7 +36,7 @@ class HttpClient(
 // 3. Modify type resolution
 ```
 
-### IR Phase: Direct Bytecode Generation
+#### IR Phase: Direct Bytecode Generation
 
 In the IR phase, Metro generates actual implementation code directly:
 
@@ -64,7 +62,7 @@ class HttpClient_Factory : Factory<HttpClient> {
 }
 ```
 
-### The Power of Compiler Integration
+#### The Power of Compiler Integration
 
 Metro can do things impossible with annotation processing:
 
@@ -87,9 +85,9 @@ class AppClass(
 }
 ```
 
-## Hilt's KSP Architecture
+### Hilt's KSP Architecture
 
-### Symbol Processing: Working with AST
+#### Symbol Processing: Working with AST
 
 Hilt uses KSP to analyze your code's Abstract Syntax Tree (AST) and generate new source files:
 
@@ -117,7 +115,7 @@ abstract class Hilt_MainActivity : AppCompatActivity() {
 }
 ```
 
-### Component Hierarchy Management
+#### Component Hierarchy Management
 
 Hilt generates a complex component hierarchy at compile-time:
 
@@ -154,9 +152,9 @@ interface ActivityComponent {
 }
 ```
 
-## Compilation Process Comparison
+### Compilation Process Comparison
 
-### Metro's Compilation Pipeline
+#### Metro's Compilation Pipeline
 
 ```mermaid
 graph TD
@@ -206,7 +204,7 @@ class MetroIrGeneration : IrGenerationExtension {
 }
 ```
 
-### Hilt's KSP Pipeline
+#### Hilt's KSP Pipeline
 
 ```mermaid
 graph TD
@@ -268,9 +266,9 @@ class HiltSymbolProcessor(
 }
 ```
 
-## Runtime Performance Characteristics
+### Runtime Performance Characteristics
 
-### Metro: Zero-Overhead Abstraction
+#### Metro: Zero-Overhead Abstraction
 
 Metro's generated code has virtually no runtime overhead:
 
@@ -299,7 +297,7 @@ class MetroGraph : AppGraph {
 - No map lookups
 - Compile-time wiring means no runtime discovery
 
-### Hilt: Component Management Overhead
+#### Hilt: Component Management Overhead
 
 Hilt has some runtime overhead due to component management:
 
@@ -330,9 +328,9 @@ class MainActivity : AppCompatActivity() {
 - Map lookups for scoped instances
 - Runtime validation of component hierarchy
 
-## Advanced Features Comparison
+### Advanced Features Comparison
 
-### Metro's Compile-Time Graph Validation
+#### Metro's Compile-Time Graph Validation
 
 Metro validates the entire dependency graph at compile-time:
 
@@ -350,7 +348,7 @@ interface AppGraph {
 // 4. Qualifier matching
 ```
 
-### Hilt's Runtime Component Scoping
+#### Hilt's Runtime Component Scoping
 
 Hilt manages Android lifecycle scopes at runtime:
 
@@ -377,9 +375,9 @@ object ActivityModule {
 }
 ```
 
-## Generic Support and Type Safety
+### Generic Support and Type Safety
 
-### Metro: Full Generic Support via Compiler
+#### Metro: Full Generic Support via Compiler
 
 ```kotlin
 // Metro handles generics perfectly due to compiler integration
@@ -395,7 +393,7 @@ class Repository_Factory<T : Entity> : Factory<Repository<T>> {
 }
 ```
 
-### Hilt: Limited by Type Erasure
+#### Hilt: Limited by Type Erasure
 
 ```kotlin
 // Hilt struggles with generics due to KSP limitations
@@ -411,9 +409,9 @@ class UserRepository(
 )
 ```
 
-## Incremental Compilation
+### Incremental Compilation
 
-### Metro: Granular Invalidation
+#### Metro: Granular Invalidation
 
 Metro tracks dependencies at the declaration level:
 
@@ -427,7 +425,7 @@ class ApiService(httpClient: HttpClient) // Recompiled
 class Database(...) // Not recompiled
 ```
 
-### Hilt: Module-Level Invalidation
+#### Hilt: Module-Level Invalidation
 
 Hilt/KSP typically invalidates at the module level:
 
@@ -442,9 +440,9 @@ object NetworkModule {
 }
 ```
 
-## Debugging Experience
+### Debugging Experience
 
-### Metro: Integrated Debugging
+#### Metro: Integrated Debugging
 
 ```kotlin
 // metro DSL in build.gradle
@@ -456,7 +454,7 @@ metro {
 }
 ```
 
-### Hilt: Source File Inspection
+#### Hilt: Source File Inspection
 
 With Hilt, you can inspect generated source files:
 
@@ -465,29 +463,29 @@ With Hilt, you can inspect generated source files:
 // Actual Java/Kotlin source files you can read and debug
 ```
 
-## Conclusion: Architectural Trade-offs
+### Conclusion: Architectural Trade-offs
 
-### Metro Advantages:
+#### Metro Advantages:
 - **Zero runtime overhead** - Direct field access, no reflection
 - **Superior compile-time validation** - Catches all DI errors at compile time
 - **Better generic support** - Full type information available
 - **More efficient generated code** - Direct bytecode generation
 - **Advanced features** - Top-level function injection, context receivers
 
-### Metro Disadvantages:
+#### Metro Disadvantages:
 - **Requires compiler plugin** - More complex build setup
 - **Limited IDE support** - Red code without proper plugin support
 - **Harder to debug** - IR generation vs source files
 - **Less mature ecosystem** - Fewer third-party integrations
 
-### Hilt Advantages:
+#### Hilt Advantages:
 - **Mature ecosystem** - Battle-tested, extensive documentation
 - **Android integration** - First-class Android lifecycle support
 - **Easier debugging** - Generated source files are readable
 - **IDE support** - Full IDE support out of the box
 - **Gradual migration** - Can coexist with Dagger
 
-### Hilt Disadvantages:
+#### Hilt Disadvantages:
 - **Runtime overhead** - Component creation and management
 - **Limited by KSP** - Type erasure, no compiler modifications
 - **More boilerplate** - Components, modules, installation

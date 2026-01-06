@@ -9,11 +9,9 @@ publishedDate: null
 relatedTopics: [hot-cold-streams]
 ---
 
-## Overview
-
 In Kotlin Coroutines, Deferred objects represent the result of a long-running or asynchronous operation. A coroutine can return a Deferred object, and then continue executing other code while the operation is ongoing. Later, when the result becomes available, you can use the **`await()`** function to suspend the coroutine until the result is ready.
 
-## Example: Starting a Car Engine
+### Example: Starting a Car Engine
 
 Here's an example using the scenario of starting a car engine:
 
@@ -38,7 +36,7 @@ suspend fun driveCar() { // Start the engine and get a Deferred object
 
 In this example, `startEngine()` returns a `Deferred<String>` that represents the asynchronous engine starting operation. Meanwhile, `driveCar()` can continue with other tasks like buckling up. When it's time to drive, it calls `await()` to get the final result.
 
-## Key Takeaways
+### Key Takeaways
 
 - **Deferred objects** represent future results of asynchronous operations
 - **`await()`** suspends execution until the result is ready

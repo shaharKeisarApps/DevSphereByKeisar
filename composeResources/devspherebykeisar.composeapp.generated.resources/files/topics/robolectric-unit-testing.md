@@ -9,8 +9,6 @@ publishedDate: null
 relatedTopics: [supervised-scope-build-plugins, collectasretainedstate-push-architecture]
 ---
 
-## The Android Testing Dilemma
-
 Traditional Android testing has two frustrating options:
 - **Instrumentation Tests**: Accurate but slow (run on emulator/device)
 - **JVM Unit Tests**: Fast but crash on Android framework code
@@ -25,9 +23,9 @@ fun testViewModel() {
 
 **Robolectric** solves this by providing a simulated Android environment that runs on the JVM, giving you the speed of unit tests with the accuracy of instrumentation tests.
 
-## Setting Up Robolectric
+### Setting Up Robolectric
 
-### Gradle Configuration
+#### Gradle Configuration
 
 ```kotlin
 // app/build.gradle.kts
@@ -52,7 +50,7 @@ dependencies {
 }
 ```
 
-### Basic Test Structure
+#### Basic Test Structure
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -70,9 +68,9 @@ class UserViewModelTest {
 }
 ```
 
-## Testing ViewModels with Robolectric
+### Testing ViewModels with Robolectric
 
-### ViewModel with Android Dependencies
+#### ViewModel with Android Dependencies
 
 ```kotlin
 class UserViewModel(
@@ -105,7 +103,7 @@ class UserViewModel(
 }
 ```
 
-### Comprehensive Test
+#### Comprehensive Test
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -161,7 +159,7 @@ class UserViewModelTest {
 }
 ```
 
-## Testing Android Resources
+### Testing Android Resources
 
 Robolectric provides access to real resources:
 
@@ -191,7 +189,7 @@ class ResourceTest {
 }
 ```
 
-## Testing Repositories with Room
+### Testing Repositories with Room
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -253,7 +251,7 @@ class UserRepositoryTest {
 }
 ```
 
-## Testing WorkManager
+### Testing WorkManager
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -315,7 +313,7 @@ class SyncWorkerTest {
 }
 ```
 
-## Testing SharedPreferences
+### Testing SharedPreferences
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -351,7 +349,7 @@ class PreferencesManagerTest {
 }
 ```
 
-## Testing Broadcast Receivers
+### Testing Broadcast Receivers
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -392,7 +390,7 @@ class NetworkReceiverTest {
 }
 ```
 
-## Advanced: Testing Activities and Fragments
+### Advanced: Testing Activities and Fragments
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -425,7 +423,7 @@ class MainActivityTest {
 }
 ```
 
-## Testing Compose UI (with Robolectric)
+### Testing Compose UI (with Robolectric)
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -466,9 +464,9 @@ class UserProfileScreenTest {
 }
 ```
 
-## Performance and Best Practices
+### Performance and Best Practices
 
-### Parallel Test Execution
+#### Parallel Test Execution
 
 ```kotlin
 // gradle.properties
@@ -486,7 +484,7 @@ tasks.withType<Test> {
 }
 ```
 
-### Test Configuration
+#### Test Configuration
 
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
@@ -500,7 +498,7 @@ class CustomConfigTest {
 }
 ```
 
-### Shared Test Setup
+#### Shared Test Setup
 
 ```kotlin
 open class BaseRobolectricTest {
@@ -531,7 +529,7 @@ class UserViewModelTest : BaseRobolectricTest() {
 }
 ```
 
-## Integration with KMP
+### Integration with KMP
 
 For KMP projects, use Robolectric in Android-specific tests:
 
@@ -550,7 +548,7 @@ class AndroidSpecificRepositoryTest {
 }
 ```
 
-## CI/CD Integration
+### CI/CD Integration
 
 ```yaml
 # .github/workflows/test.yml
@@ -581,7 +579,7 @@ jobs:
           files: '**/build/test-results/**/*.xml'
 ```
 
-## Conclusion
+### Conclusion
 
 Robolectric transforms Android testing by providing:
 - **JVM speed** without emulator overhead

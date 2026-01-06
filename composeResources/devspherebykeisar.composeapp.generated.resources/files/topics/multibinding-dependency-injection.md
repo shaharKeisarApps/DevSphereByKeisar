@@ -9,17 +9,15 @@ publishedDate: null
 relatedTopics: [ksp-autoservice, understanding-kclass]
 ---
 
-## Introduction
-
 MultiBinding is a technique used in Dependency Injection to bind multiple implementations of a dependency into a collection, such as a list or map. It enables the injection of multiple objects that share a common interface or superclass, providing a way to manage dependencies dynamically at runtime.
 
-## What is MultiBinding?
+### What is MultiBinding?
 
 MultiBinding allows you to bind several implementations of a common interface or superclass into a collection. This collection can then be injected wherever needed, providing a way to access multiple implementations of a dependency.
 
 For example, if you have several implementations of an `Operation` interface, you can use MultiBinding to inject a list of all available operations into a class that requires them.
 
-## Benefits of MultiBinding
+### Benefits of MultiBinding
 
 1. **Flexibility**: MultiBinding allows you to provide different implementations of a dependency at runtime, enabling more dynamic and adaptable code.
 
@@ -27,11 +25,11 @@ For example, if you have several implementations of an `Operation` interface, yo
 
 3. **Ease of Extension**: You can easily add or remove implementations without changing the dependent classes, making the codebase more maintainable.
 
-## MultiBinding with Dagger
+### MultiBinding with Dagger
 
 Dagger, a popular DI framework, provides robust support for MultiBinding.
 
-### 1. Define a Key Annotation
+#### Define a Key Annotation
 
 Create a custom annotation to act as a key for the dependencies:
 
@@ -42,7 +40,7 @@ Create a custom annotation to act as a key for the dependencies:
 annotation class OperationKey(val value: KClass<out Operation>)
 ```
 
-### 2. Bind Multiple Implementations
+#### Bind Multiple Implementations
 
 Use the `@Binds` and `@IntoMap` annotations to bind multiple implementations:
 
@@ -57,7 +55,7 @@ interface OperationModule {
 }
 ```
 
-### 3. Inject the Collection
+#### Inject the Collection
 
 You can now inject the collection of dependencies wherever needed:
 
@@ -72,7 +70,7 @@ class OperationExecutor @Inject constructor(
 }
 ```
 
-## Real-Life Example
+### Real-Life Example
 
 Imagine a scenario where you have an automation system that can perform various operations like dialing, messaging, etc. Each operation is implemented as a separate class, and you want to provide the correct operation at runtime based on user input.
 

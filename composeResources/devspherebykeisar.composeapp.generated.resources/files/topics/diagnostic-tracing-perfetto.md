@@ -9,8 +9,6 @@ publishedDate: null
 relatedTopics: [collectasretainedstate-push-architecture, supervised-scope-build-plugins]
 ---
 
-## Why Traditional Profiling Falls Short
-
 Traditional CPU profilers sample stack traces periodically (typically every 10ms). This misses:
 - **Microsecond-level operations** - Compose recompositions, coroutine suspensions
 - **Async work** - Coroutine context switches, dispatcher changes
@@ -18,7 +16,7 @@ Traditional CPU profilers sample stack traces periodically (typically every 10ms
 
 **Perfetto tracing** captures every event with nanosecond precision, revealing the complete execution story.
 
-## Understanding Perfetto
+### Understanding Perfetto
 
 Perfetto is Android's system-wide tracing framework that captures:
 - CPU scheduling (which thread ran when)
@@ -26,7 +24,7 @@ Perfetto is Android's system-wide tracing framework that captures:
 - Custom trace sections (your code)
 - System events (GC, binder calls, I/O)
 
-### Trace Anatomy
+#### Trace Anatomy
 
 ```kotlin
 // Traditional profiler sees: someFunction took 100ms
@@ -52,9 +50,9 @@ fun someFunction() = trace("someFunction") {
 }
 ```
 
-## Setting Up Perfetto Tracing
+### Setting Up Perfetto Tracing
 
-### 1. Add Tracing Dependencies
+#### 1. Add Tracing Dependencies
 
 ```kotlin
 // build.gradle.kts
@@ -67,7 +65,7 @@ dependencies {
 }
 ```
 
-### 2. Initialize Tracing
+#### 2. Initialize Tracing
 
 ```kotlin
 // In Application.onCreate()
@@ -91,9 +89,9 @@ class MyApplication : Application() {
 }
 ```
 
-## Core Tracing Patterns
+### Core Tracing Patterns
 
-### Function-Level Tracing
+#### Function-Level Tracing
 
 ```kotlin
 // Extension function for clean tracing
@@ -122,7 +120,7 @@ fun loadUserData(userId: String): User = trace("loadUserData") {
 }
 ```
 
-### Coroutine Tracing
+#### Coroutine Tracing
 
 Trace coroutine execution across context switches:
 
@@ -155,7 +153,7 @@ suspend fun fetchData() = withContext(tracingIODispatcher) {
 }
 ```
 
-### Repository Pattern Tracing
+#### Repository Pattern Tracing
 
 ```kotlin
 class UserRepository(
@@ -194,7 +192,7 @@ class UserRepository(
 }
 ```
 
-## Compose Recomposition Tracing
+### Compose Recomposition Tracing
 
 Identify expensive recompositions:
 
@@ -231,7 +229,7 @@ inline fun TraceComposable(
 }
 ```
 
-## Flow Tracing
+### Flow Tracing
 
 Track Flow emissions and transformations:
 
@@ -264,7 +262,7 @@ fun observeUsers(): Flow<List<User>> =
         .traced("sorted")
 ```
 
-## Advanced: Async Trace Sections
+### Advanced: Async Trace Sections
 
 For work that spans multiple frames or threads:
 
@@ -305,9 +303,9 @@ class ImageLoader {
 }
 ```
 
-## Capturing and Analyzing Traces
+### Capturing and Analyzing Traces
 
-### Capture Trace
+#### Capture Trace
 
 ```kotlin
 // Programmatic capture
@@ -328,7 +326,7 @@ suspend fun captureTrace(durationSeconds: Int): File {
 }
 ```
 
-### ADB Capture
+#### ADB Capture
 
 ```bash
 # Capture 10 second trace
@@ -356,13 +354,13 @@ EOF
 adb pull /data/misc/perfetto-traces/trace.perfetto-trace .
 ```
 
-### Open in Perfetto UI
+#### Open in Perfetto UI
 
 Visit https://ui.perfetto.dev and load the trace file.
 
-## Reading Perfetto Traces
+### Reading Perfetto Traces
 
-### Key Metrics to Look For
+#### Key Metrics to Look For
 
 **Frame Rendering:**
 - Composition time (target: <8ms for 120fps)
@@ -379,7 +377,7 @@ Visit https://ui.perfetto.dev and load the trace file.
 - Unexpected sequential work (parallelize?)
 - Redundant work (caching needed?)
 
-### Example Analysis
+#### Example Analysis
 
 ```
 Timeline View:
@@ -393,7 +391,7 @@ Diagnosis: Avatar loading is slow
 Solution: Add image caching or load thumbnails
 ```
 
-## Production Tracing
+### Production Tracing
 
 For production apps, use conditional tracing:
 
@@ -430,7 +428,7 @@ inline fun <T> traceIfSlow(
 }
 ```
 
-## Automated Performance Testing
+### Automated Performance Testing
 
 Capture traces in tests:
 
@@ -452,7 +450,7 @@ fun testUserLoadPerformance() = runTest {
 }
 ```
 
-## Integration with CI/CD
+### Integration with CI/CD
 
 ```kotlin
 // Gradle task for performance regression testing
@@ -476,7 +474,7 @@ tasks.register("performanceTest") {
 }
 ```
 
-## Best Practices
+### Best Practices
 
 1. **Trace Strategically**: Don't trace every function - focus on:
    - Repository operations
@@ -493,7 +491,7 @@ tasks.register("performanceTest") {
 
 5. **Automate Trace Analysis**: CI/CD performance regression tests
 
-## Conclusion
+### Conclusion
 
 Perfetto tracing provides unprecedented visibility into Kotlin app performance:
 - **Microsecond precision** vs profiler's 10ms sampling

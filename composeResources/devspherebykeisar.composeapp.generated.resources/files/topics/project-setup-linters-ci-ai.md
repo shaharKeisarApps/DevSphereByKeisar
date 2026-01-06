@@ -9,8 +9,6 @@ publishedDate: null
 relatedTopics: [supervised-scope-build-plugins, robolectric-unit-testing]
 ---
 
-## Why Linters Matter for AI-Assisted Development
-
 AI tools like Claude Code generate code quickly, but without proper guardrails, you get:
 - Inconsistent formatting
 - Potential security issues
@@ -23,9 +21,9 @@ AI tools like Claude Code generate code quickly, but without proper guardrails, 
 - Auto-fixes where possible
 - Provides consistent codebase for AI to learn from
 
-## The Trifecta: Spotless + Detekt + ktlint
+### The Trifecta: Spotless + Detekt + ktlint
 
-### Spotless: Code Formatting
+#### Spotless: Code Formatting
 
 Spotless enforces consistent formatting automatically.
 
@@ -68,7 +66,7 @@ configure<SpotlessExtension> {
 }
 ```
 
-### Detekt: Static Code Analysis
+#### Detekt: Static Code Analysis
 
 Detekt catches code smells, potential bugs, and complexity issues.
 
@@ -115,7 +113,7 @@ dependencies {
 }
 ```
 
-### Detekt Configuration
+#### Detekt Configuration
 
 ```yaml
 # config/detekt/detekt.yml
@@ -203,7 +201,7 @@ style:
     max: 3
 ```
 
-## Pre-Commit Hooks with Husky/Git Hooks
+### Pre-Commit Hooks with Husky/Git Hooks
 
 Catch issues before they reach CI.
 
@@ -237,7 +235,7 @@ Make it executable:
 chmod +x .git/hooks/pre-commit
 ```
 
-## Gradle Tasks for Automation
+### Gradle Tasks for Automation
 
 Create composite tasks for common workflows:
 
@@ -268,9 +266,9 @@ tasks.register("fix-code-quality") {
 }
 ```
 
-## CI/CD Configuration
+### CI/CD Configuration
 
-### GitHub Actions Workflow
+#### GitHub Actions Workflow
 
 ```yaml
 # .github/workflows/pr-checks.yml
@@ -359,7 +357,7 @@ jobs:
           files: '**/build/reports/jacoco/**/*.xml'
 ```
 
-### Parallel Job Execution
+#### Parallel Job Execution
 
 ```yaml
 # .github/workflows/fast-checks.yml
@@ -402,7 +400,7 @@ jobs:
       - run: ./gradlew test
 ```
 
-## EditorConfig for Consistency
+### EditorConfig for Consistency
 
 ```ini
 # .editorconfig
@@ -429,7 +427,7 @@ indent_size = 2
 trim_trailing_whitespace = false
 ```
 
-## Danger for PR Automation
+### Danger for PR Automation
 
 Automate PR reviews with Danger:
 
@@ -471,7 +469,7 @@ danger(args) {
 }
 ```
 
-## Custom Detekt Rules
+### Custom Detekt Rules
 
 Create project-specific rules:
 
@@ -521,7 +519,7 @@ class CustomRuleSetProvider : RuleSetProvider {
 }
 ```
 
-## AI-Friendly Project Structure
+### AI-Friendly Project Structure
 
 Help AI tools understand your project:
 
@@ -529,10 +527,10 @@ Help AI tools understand your project:
 # CLAUDE.md
 # This file provides guidance to Claude Code when working with this repository.
 
-## Project Overview
+### Project Overview
 This is a Kotlin Multiplatform project targeting Android, iOS, and Desktop.
 
-## Build Commands
+### Build Commands
 \`\`\`bash
 # Run tests
 ./gradlew test
@@ -547,31 +545,31 @@ This is a Kotlin Multiplatform project targeting Android, iOS, and Desktop.
 ./gradlew check-code-quality
 \`\`\`
 
-## Code Style
+### Code Style
 - Max line length: 120
 - Use trailing commas
 - Follow detekt rules in config/detekt/detekt.yml
 - All public APIs must have KDoc comments
 
-## Testing
+### Testing
 - Unit tests in src/test/
 - Use Robolectric for Android-specific tests
 - Prefer fakes over mocks
 - Aim for 80%+ code coverage
 
-## CI/CD
+### CI/CD
 - All PRs must pass spotless + detekt + tests
 - Pre-commit hooks enforce quality checks locally
 - GitHub Actions run on every PR
 
-## Architecture
+### Architecture
 - Follow Clean Architecture
 - Repository pattern for data access
 - MVVM/MVI for presentation
 - Use Kotlin Flow for reactive streams
 ```
 
-## Benefits for AI Collaboration
+### Benefits for AI Collaboration
 
 Properly configured linters and CI create an environment where AI tools excel:
 
@@ -581,7 +579,7 @@ Properly configured linters and CI create an environment where AI tools excel:
 **4. Clear Rules**: Detekt provides explicit guidelines
 **5. Safe Merges**: CI ensures code quality before merge
 
-## Conclusion
+### Conclusion
 
 A well-configured project with Spotless, Detekt, pre-commit hooks, and CI/CD:
 - **Catches issues early** before they reach production

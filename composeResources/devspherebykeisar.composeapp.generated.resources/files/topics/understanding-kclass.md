@@ -9,11 +9,9 @@ publishedDate: null
 relatedTopics: [multibinding-dependency-injection, mastering-wildcards]
 ---
 
-## Overview
-
 `KClass` is Kotlin's representation of a runtime class reference, similar to Java's `Class<T>`. It provides type-safe access to class metadata and is essential for reflection, dependency injection, and various runtime operations.
 
-## What is KClass?
+### What is KClass?
 
 `KClass<T>` represents a Kotlin class and provides access to its metadata. You can obtain a `KClass` reference using the `::class` syntax.
 
@@ -22,9 +20,9 @@ val stringClass: KClass<String> = String::class
 val intClass: KClass<Int> = Int::class
 ```
 
-## Use Cases
+### Use Cases
 
-### 1. Reflection
+#### Reflection
 
 Access class metadata at runtime:
 
@@ -37,7 +35,7 @@ fun <T : Any> printClassInfo(kClass: KClass<T>) {
 }
 ```
 
-### 2. Dependency Injection with Dagger
+#### Dependency Injection with Dagger
 
 `KClass` is commonly used in dependency injection frameworks to specify types:
 
@@ -56,7 +54,7 @@ interface ViewModelModule {
 }
 ```
 
-### 3. Type-Safe Operations
+#### Type-Safe Operations
 
 Use with generic functions for type safety:
 
@@ -69,7 +67,7 @@ inline fun <reified T : Any> createInstance(): T {
 val myObject = createInstance<MyClass>()
 ```
 
-## KClass vs Java Class
+### KClass vs Java Class
 
 Kotlin provides seamless interop between `KClass` and Java's `Class`:
 
@@ -81,7 +79,7 @@ val javaClass: Class<String> = kClass.java
 val directJavaClass = String::class.java
 ```
 
-## Practical Example with Dagger MultiBinding
+### Practical Example with Dagger MultiBinding
 
 ```kotlin
 @MapKey
@@ -99,7 +97,7 @@ class OperationExecutor @Inject constructor(
 executor.execute(DialerOperation::class)
 ```
 
-## Key Points
+### Key Points
 
 1. `KClass` represents Kotlin class references at runtime
 2. Use `::class` to obtain a reference

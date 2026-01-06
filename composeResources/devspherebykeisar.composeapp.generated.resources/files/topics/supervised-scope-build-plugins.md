@@ -9,15 +9,13 @@ publishedDate: null
 relatedTopics: [ksp-autoservice, metro-vs-hilt-internals]
 ---
 
-## The Challenge: Scaling Build Configuration
-
 As Kotlin Multiplatform projects grow, build configuration becomes unwieldy. Duplicated build logic across modules leads to inconsistency, difficult maintenance, and configuration drift. The solution? **Convention plugins** combined with **SupervisorScope** for resilient build-time tasks.
 
-## Convention Plugins: Reusable Build Logic
+### Convention Plugins: Reusable Build Logic
 
 Convention plugins encapsulate build configuration patterns into reusable, composable units.
 
-### Traditional Approach (Anti-Pattern)
+#### Traditional Approach (Anti-Pattern)
 
 ```kotlin
 // build.gradle.kts in EVERY module - lots of duplication!
@@ -44,7 +42,7 @@ kotlin {
 }
 ```
 
-### Convention Plugin Approach
+#### Convention Plugin Approach
 
 Create a shared convention plugin in `build-logic/convention/`:
 
@@ -112,11 +110,11 @@ plugins {
 }
 ```
 
-## SupervisorScope in Build Scripts
+### SupervisorScope in Build Scripts
 
 When build scripts execute coroutines (for code generation, validation, etc.), **SupervisorScope** ensures one failure doesn't crash the entire build.
 
-### Why SupervisorScope in Gradle?
+#### Why SupervisorScope in Gradle?
 
 ```kotlin
 // Without SupervisorScope - one task failure kills everything
@@ -131,7 +129,7 @@ tasks.register("generateModels") {
 }
 ```
 
-### With SupervisorScope
+#### With SupervisorScope
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -176,9 +174,9 @@ tasks.register("generateModels") {
 }
 ```
 
-## Advanced Convention Plugin Patterns
+### Advanced Convention Plugin Patterns
 
-### Composable Conventions
+#### Composable Conventions
 
 Build conventions from smaller, focused plugins:
 
@@ -229,7 +227,7 @@ class KmpLibraryConvention : Plugin<Project> {
 }
 ```
 
-### Type-Safe Configuration Extensions
+#### Type-Safe Configuration Extensions
 
 Create DSLs for project-specific configuration:
 
@@ -297,7 +295,7 @@ apiConfig {
 }
 ```
 
-## Build-Time Code Generation with SupervisorScope
+### Build-Time Code Generation with SupervisorScope
 
 Generate code in parallel with fault isolation:
 
@@ -359,7 +357,7 @@ abstract class CodeGenerationTask : DefaultTask() {
 }
 ```
 
-## Version Catalogs with Conventions
+### Version Catalogs with Conventions
 
 Centralize dependency management:
 
@@ -393,7 +391,7 @@ dependencies {
 }
 ```
 
-## Testing Conventions
+### Testing Conventions
 
 Create test conventions for consistent test setup:
 
@@ -433,7 +431,7 @@ class KmpTestConvention : Plugin<Project> {
 }
 ```
 
-## Error Handling in Build Scripts
+### Error Handling in Build Scripts
 
 Structured error handling with SupervisorScope:
 
@@ -480,7 +478,7 @@ sealed class ValidationResult {
 }
 ```
 
-## Conclusion
+### Conclusion
 
 Convention plugins combined with SupervisorScope create maintainable, fault-tolerant build configurations:
 
